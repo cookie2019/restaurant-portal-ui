@@ -7,6 +7,7 @@ import {
   CalendarDays,
   Users,
   TableProperties,
+  Settings,
   LogOut,
   Utensils,
 } from "lucide-react";
@@ -17,6 +18,7 @@ const NAV = [
   { href: "/reservations", label: "Reservations", icon: CalendarDays },
   { href: "/tables", label: "Tables", icon: TableProperties },
   { href: "/customers", label: "Guests", icon: Users },
+  { href: "/settings", label: "Settings", icon: Settings },
 ];
 
 export function Sidebar() {

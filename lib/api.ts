@@ -114,6 +114,81 @@ export async function getAvailability(
   return data.data;
 }
 
+// Table CRUD
+export async function createTable(
+  restaurantId: string,
+  body: { table_number: string; capacity: number; section: string; notes?: string }
+) {
+  const data = await apiFetch<{
+    data: { table: import("./types").Table };
+  }>(`/v1/restaurants/${restaurantId}/tables`, {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+  return data.data.table;
+}
+
+export async function updateTable(
+  restaurantId: string,
+  tableId: number,
+  body: { table_number?: string; capacity?: number; section?: string; notes?: string }
+) {
+  const data = await apiFetch<{
+    data: { table: import("./types").Table };
+  }>(`/v1/restaurants/${restaurantId}/tables/${tableId}`, {
+    method: "PATCH",
+    body: JSON.stringify(body),
+  });
+  return data.data.table;
+}
+
+export async function deleteTable(restaurantId: string, tableId: number) {
+  await apiFetch<void>(`/v1/restaurants/${restaurantId}/tables/${tableId}`, {
+    method: "DELETE",
+  });
+}
+
+// Availability settings
+export async function getAvailabilitySettings(restaurantId: string) {
+  const data = await apiFetch<{
+    data: import("./types").AvailabilitySettings;
+  }>(`/v1/restaurants/${restaurantId}/availability/settings`);
+  return data.data;
+}
+
+export async function updateAvailabilityHours(
+  restaurantId: string,
+  hours: import("./types").DayHours[]
+) {
+  const data = await apiFetch<{
+    data: { hours: import("./types").DayHours[] };
+  }>(`/v1/restaurants/${restaurantId}/availability`, {
+    method: "PATCH",
+    body: JSON.stringify({ hours }),
+  });
+  return data.data.hours;
+}
+
+export async function createBlackout(
+  restaurantId: string,
+  body: { date: string; reason?: string }
+) {
+  const data = await apiFetch<{
+    data: { blackout: import("./types").BlackoutDate };
+  }>(`/v1/restaurants/${restaurantId}/availability/blackouts`, {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+  return data.data.blackout;
+}
+
+export async function deleteBlackout(restaurantId: string, blackoutId: number) {
+  await apiFetch<void>(
+    `/v1/restaurants/${restaurantId}/availability/blackouts/${blackoutId}`,
+    { method: "DELETE" }
+  );
+}
+
 // Customers
 export async function getCustomers(restaurantId: string) {
   const data = await apiFetch<{

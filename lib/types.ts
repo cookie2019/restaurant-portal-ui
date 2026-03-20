@@ -50,3 +50,22 @@ export interface AvailabilitySlot {
   tablesAvailable: number;
   tableIds: number[];
 }
+
+export interface DayHours {
+  day: string;
+  is_open: boolean;
+  open_time: string;
+  close_time: string;
+  turn_time_minutes: number;
+}
+
+export interface BlackoutDate {
+  id: number;
+  date: string;
+  reason: string | null;
+}
+
+export interface AvailabilitySettings {
+  hours: DayHours[];
+  blackouts: BlackoutDate[];
+}
