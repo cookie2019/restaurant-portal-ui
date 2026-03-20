@@ -123,7 +123,12 @@ export async function createTable(
     data: { table: import("./types").Table };
   }>(`/v1/restaurants/${restaurantId}/tables`, {
     method: "POST",
-    body: JSON.stringify(body),
+    body: JSON.stringify({
+      tableNumber: body.table_number,
+      capacity: body.capacity,
+      section: body.section,
+      notes: body.notes,
+    }),
   });
   return data.data.table;
 }
@@ -137,7 +142,12 @@ export async function updateTable(
     data: { table: import("./types").Table };
   }>(`/v1/restaurants/${restaurantId}/tables/${tableId}`, {
     method: "PATCH",
-    body: JSON.stringify(body),
+    body: JSON.stringify({
+      tableNumber: body.table_number,
+      capacity: body.capacity,
+      section: body.section,
+      notes: body.notes,
+    }),
   });
   return data.data.table;
 }
